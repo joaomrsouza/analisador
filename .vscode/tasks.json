@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "C/C++: gcc.exe build object file",
+      "command": "gcc",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-I",
+        "libs",
+        "-c",
+        "-o",
+        "${relativeFileDirname}\\${fileBasenameNoExtension}.o",
+        "${file}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+    },
+    {
+      "type": "cppbuild",
+      "label": "C/C++: gcc.exe build active file",
+      "command": "gcc",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "${workspaceFolder}\\libs\\charlist.o",
+        "${fileDirname}\\${fileBasenameNoExtension}.o"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "dependsOn": [
+        "C/C++: gcc.exe build object file"
+      ],
+    },
+    {
+      "type": "shell",
+      "label": "C/C++: Execute active file",
+      "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "args": [
+        "input.txt"
+      ],
+      "dependsOn": [
+        "C/C++: gcc.exe build active file"
+      ]
+    },
+  ]
+}

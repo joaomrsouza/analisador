@@ -1,0 +1,32 @@
+{
+  "extension-manager.workspace": [
+    "ms-vscode.cpptools",
+    "gruntfuggly.triggertaskonsave"
+  ],
+  "triggerTaskOnSave.tasks": {
+    "C/C++: gcc.exe build active file": [
+      "src/**/*.c",
+    ],
+    "C/C++: gcc.exe build object file": [
+      "libs/**/*.c"
+    ]
+  },
+  "triggerTaskOnSave.on": true,
+  "triggerTaskOnSave.restart": true,
+  "triggerTaskOnSave.resultIndicator": "statusBar.background",
+  "triggerTaskOnSave.failureColour": "#80000050",
+  "triggerTaskOnSave.successColour": "#00800050",
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#00800050"
+  },
+  "files.associations": {
+    "*.html": "html",
+    "*.ejs": "html",
+    "*.geojson": "json",
+    ".pleeeaserc": "json",
+    "*/requirements{/**,*}.{txt,in}": "pip-requirements",
+    "*.jsx": "javascriptreact",
+    "stdio.h": "c",
+    "charlist.h": "c"
+  }
+}
