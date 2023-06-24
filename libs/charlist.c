@@ -13,6 +13,12 @@ CharList *clst_create()
   return NULL;
 }
 
+CharList *clst_clear(CharList *l)
+{
+  clst_free(l);
+  return clst_create();
+}
+
 int clst_empty(CharList *l)
 {
   return l == NULL;
@@ -63,6 +69,16 @@ void clst_print(CharList *l)
   while (lAux != NULL)
   {
     printf("%c\n", lAux->info);
+    lAux = lAux->prox;
+  }
+}
+
+void clst_print_inline(CharList *l)
+{
+  CharList *lAux = l;
+  while (lAux != NULL)
+  {
+    printf("%c", lAux->info);
     lAux = lAux->prox;
   }
 }

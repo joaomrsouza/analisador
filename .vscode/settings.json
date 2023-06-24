@@ -16,9 +16,7 @@
   "triggerTaskOnSave.resultIndicator": "statusBar.background",
   "triggerTaskOnSave.failureColour": "#80000050",
   "triggerTaskOnSave.successColour": "#00800050",
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#00800050"
-  },
+  "workbench.colorCustomizations": {},
   "files.associations": {
     "*.html": "html",
     "*.ejs": "html",

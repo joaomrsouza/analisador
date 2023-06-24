@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <ctype.h>
+#include "charlist.h"
 
 /* Declarações globais */
 /* Variáveis */
 int charClass;
-char lexeme[100]; // TODO: transformar em lista de tamanho dinâmico
+CharList *lexeme;
 char nextChar;
-int lexLen;
 int token;
 int nextToken;
 FILE *in_fp, *fopen();
@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
     printf("ERROR - cannot open %s \n", argv[1]);
   else
   {
+    lexeme = clst_create();
     getChar();
     do
     {
@@ -109,7 +110,7 @@ void getStringChar()
 aritméticas */
 int lex()
 {
-  lexLen = 0;
+  lexeme = clst_clear(lexeme);
   getNonBlank();
   switch (charClass)
   {
@@ -164,13 +165,14 @@ int lex()
   /* Fim do arquivo */
   case EOF:
     nextToken = EOF;
-    lexeme[0] = 'E';
-    lexeme[1] = 'O';
-    lexeme[2] = 'F';
-    lexeme[3] = 0;
+    lexeme = clst_insert(lexeme, 'E');
+    lexeme = clst_insert(lexeme, 'O');
+    lexeme = clst_insert(lexeme, 'F');
     break;
   } /* Fim do switch */
-  printf("token: %d, lexeme: %s\n", nextToken, lexeme);
+  printf("token: %d, lexeme: ", nextToken);
+  clst_print_inline(lexeme);
+  printf("\n");
   return nextToken;
 } /* Fim da função lex */
 
@@ -189,13 +191,7 @@ void getNonBlank()
 vetor lexeme */
 void addChar()
 {
-  if (lexLen <= 98)
-  {
-    lexeme[lexLen++] = nextChar;
-    lexeme[lexLen] = 0;
-  }
-  else
-    printf("Error - lexeme is too long \n");
+  lexeme = clst_insert(lexeme, nextChar);
 }
 
 /******************************************************/

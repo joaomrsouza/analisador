@@ -2,6 +2,8 @@ typedef struct char_list CharList;
 
 // Create an empty char list.
 CharList *clst_create();
+// Clear the char list.
+CharList *clst_clear(CharList *l);
 // Verify if the char list is empty.
 int clst_empty(CharList *l);
 // Insert an char on the start of the char list.
@@ -10,6 +12,8 @@ CharList *clst_insert(CharList *l, char info);
 CharList *clst_search(CharList *l, char info);
 // Print the char list.
 void clst_print(CharList *l);
+// Print the char list inline.
+void clst_print_inline(CharList *l);
 // Remove an element from a char list.
 CharList *clst_remove(CharList *l, char info);
 // Free the char list.
