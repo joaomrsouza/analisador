@@ -26,6 +26,7 @@ FILE *in_fp, *fopen();
 #define TK_SEMICOLON 400
 #define TK_LPAREN 401
 #define TK_RPAREN 402
+#define TK_COMMA 403
 #define TK_ADD_OP 500
 #define TK_SUB_OP 501
 #define TK_MULT_OP 503
@@ -212,6 +213,10 @@ int lookup(char ch)
   case ')':
     addChar();
     nextToken = TK_RPAREN;
+    break;
+  case ',':
+    addChar();
+    nextToken = TK_COMMA;
     break;
   case '+':
     addChar();
