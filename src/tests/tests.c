@@ -1,24 +1,46 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "charlist.h"
+#include <string.h>
 
-int main()
+void validateArgs(int argc, char *argv[]);
+
+int main(int argc, char *argv[])
 {
-  // if ('\n' == '\n')
-  // {
-  //   printf("true");
-  // }
-  // else
-  // {
-  //   printf("false");
-  // }
-  CharList *l = clst_create();
-  l = clst_insert(l, 'a');
-  l = clst_insert(l, 'b');
-  l = clst_insert(l, 'c');
-  clst_print(l);
-  printf("\n");
-  clst_free(l);
+
+  for (int i = 0; i < argc; i++)
+  {
+    printf("%s\n", argv[i]);
+  }
+
+  validateArgs(argc, argv);
 
   return 0;
+}
+
+void validateArgs(int argc, char *argv[])
+{
+  if (argc < 3)
+  {
+    printf("nao informado tudo");
+    return;
+  }
+
+  char fileFlag = 'f';
+  char modeFlag = 'm';
+
+  if (strlen(argv) != 2 || argv[1][0] != '-')
+  {
+    printf("use uma flag");
+  }
+
+  if (argv[1][1] != fileFlag || argv[1][1] != modeFlag)
+  {
+    printf("flag invalida");
+  }
+
+  if (strlen(argv[2]) == 0)
+  {
+    printf("informe o valor da flag");
+  }
 }

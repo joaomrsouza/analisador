@@ -1,2 +1,0 @@
-console.log(5 + 10);
-console.log("Hello World! 65+*8-*7/*--*/*&¨%(*!@())");

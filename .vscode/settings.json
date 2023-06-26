@@ -5,7 +5,7 @@
   ],
   "triggerTaskOnSave.tasks": {
     "C/C++: gcc.exe build active file": [
-      "src/**/*.c",
+      "src/**/*.c"
     ],
     "C/C++: gcc.exe build object file": [
       "libs/**/*.c"
@@ -16,15 +16,5 @@
   "triggerTaskOnSave.resultIndicator": "statusBar.background",
   "triggerTaskOnSave.failureColour": "#80000050",
   "triggerTaskOnSave.successColour": "#00800050",
-  "workbench.colorCustomizations": {},
-  "files.associations": {
-    "*.html": "html",
-    "*.ejs": "html",
-    "*.geojson": "json",
-    ".pleeeaserc": "json",
-    "*/requirements{/**,*}.{txt,in}": "pip-requirements",
-    "*.jsx": "javascriptreact",
-    "stdio.h": "c",
-    "charlist.h": "c"
-  }
+  "workbench.colorCustomizations": {}
 }

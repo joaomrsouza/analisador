@@ -11,3 +11,21 @@
 <string> -> "<char_list>"
 <char_list> -> <char> | <char><char_list>
 <char> -> a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ! | @ | # | $ | % | ^ | & | * | ( | ) | _ | + | - | = | { | } | [ | ] | : | ; | " | ' | < | > | , | . | ? | / | \ | ` | ~ | space
+
+
+<program> -> <stmt_list>
+<stmt_list> -> <stmt> {; <stmt_list>}
+<stmt> -> <print> | <expr>
+<print> -> console.log(<expr> | <string>)
+<expr> -> <term> {(+ | -) <term>}
+<term> -> <factor> {(* | /) <factor>}
+<factor> -> <number>
+
+
+
+<int> -> <digit> | <digit><int>
+<float> -> <digit>.<digit> | <digit><float>
+<digit> -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+<string> -> "<char_list>"
+<char_list> -> <char> | <char><char_list>
+<char> -> a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ! | @ | # | $ | % | ^ | & | * | ( | ) | _ | + | - | = | { | } | [ | ] | : | ; | " | ' | < | > | , | . | ? | / | \ | ` | ~ | space

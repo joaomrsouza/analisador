@@ -1,7 +1,15 @@
 /* front.c - um analisador léxico e analisador sintático
 simples para expressões aritméticas simples */
+#include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
+
+/* Exec mode */
+#define EM_RAW_PRINT 0
+#define EM_PRETTY_PRINT 1
+#define CURRENT_EM EM_PRETTY_PRINT
+int already_printed_lexeme = 0;
+int indentation_level = -1;
 
 /* Declarações globais */
 /* Variáveis */
@@ -19,6 +27,11 @@ void getChar();
 void getNonBlank();
 int lex();
 int lookup(char ch);
+void expr();
+void term();
+void factor();
+void error();
+void pretty_print(char *str[]);
 
 /* Classes de caracteres */
 #define LETTER 0
@@ -49,7 +62,9 @@ int main()
     getChar();
     do
     {
+      already_printed_lexeme = 1;
       lex();
+      expr();
     } while (nextToken != EOF);
   }
   return 0;
@@ -78,6 +93,15 @@ void getChar()
 aritméticas */
 int lex()
 {
+
+  if (CURRENT_EM == EM_PRETTY_PRINT && !already_printed_lexeme)
+  {
+    already_printed_lexeme = 1;
+    indentation_level++;
+    pretty_print(lexeme);
+    indentation_level--;
+  }
+  already_printed_lexeme = 0;
   lexLen = 0;
   getNonBlank();
   switch (charClass)
@@ -118,8 +142,9 @@ int lex()
     lexeme[3] = 0;
     break;
   } /* Fim do switch */
-  printf("Next token is: %d, Next lexeme is %s\n",
-         nextToken, lexeme);
+  if (CURRENT_EM == EM_RAW_PRINT)
+    printf("Next token is: %d, Next lexeme is %s\n", nextToken, lexeme);
+
   return nextToken;
 } /* Fim da função lex */
 
@@ -188,4 +213,117 @@ int lookup(char ch)
     break;
   }
   return nextToken;
+}
+
+/* expr
+Analisa sintaticamente cadeias na linguagem gerada pela
+regra:
+<expr> -> <term> {(+ | -) <term>}
+*/
+void expr()
+{
+  indentation_level++;
+  if (CURRENT_EM == EM_RAW_PRINT)
+    printf("Enter <expr>\n");
+  if (CURRENT_EM == EM_PRETTY_PRINT)
+    pretty_print("<expr>");
+  /* Analisa sintaticamente o primeiro termo */
+  term();
+  /* Desde que o próximo token seja + ou -, obtenha o próximo
+  token e analise sintaticamente o próximo termo */
+  while (nextToken == ADD_OP || nextToken == SUB_OP)
+  {
+    lex();
+    term();
+  }
+  if (CURRENT_EM == EM_RAW_PRINT)
+    printf("Exit <expr>\n");
+  if (CURRENT_EM == EM_PRETTY_PRINT)
+    pretty_print("</expr>");
+  indentation_level--;
+} /* Fim da função expr */
+
+/* term
+Analisa sintaticamente cadeias na linguagem gerada pela
+regra:
+<term> -> <factor> {(* | /) <factor>)
+*/
+void term()
+{
+  indentation_level++;
+  if (CURRENT_EM == EM_RAW_PRINT)
+    printf("Enter <term>\n");
+  if (CURRENT_EM == EM_PRETTY_PRINT)
+    pretty_print("<term>");
+  /* Analisa sintaticamente o primeiro termo */
+  factor();
+  /* Desde que o próximo token seja + ou -, obtenha o próximo
+  token e analise sintaticamente o próximo termo */
+  while (nextToken == MULT_OP || nextToken == DIV_OP)
+  {
+    lex();
+    factor();
+  }
+  if (CURRENT_EM == EM_RAW_PRINT)
+    printf("Exit <term>\n");
+  if (CURRENT_EM == EM_PRETTY_PRINT)
+    pretty_print("</term>");
+  indentation_level--;
+} /* Fim da função term */
+
+/* factor
+Analisa sintaticamente cadeias na linguagem gerada pela
+regra:
+<factor> -> id | int_constant | (<expr)
+*/
+void factor()
+{
+  indentation_level++;
+  if (CURRENT_EM == EM_RAW_PRINT)
+    printf("Enter <factor>\n");
+  if (CURRENT_EM == EM_PRETTY_PRINT)
+    pretty_print("<factor>");
+  /* Determina qual RHS */
+  if (nextToken == IDENT || nextToken == INT_LIT)
+    /* Obtém o próximo token */
+    lex();
+  /* Se a RHS é (<expr>), chame lex para passar o parêntese
+  esquerdo, chame expr e verifique pelo parêntese
+  direito */
+  else
+  {
+    if (nextToken == LEFT_PAREN)
+    {
+      lex();
+      expr();
+      if (nextToken == RIGHT_PAREN)
+        lex();
+      else
+        error();
+    } /* Fim do if (nextToken == ... */
+    /* Não era um identificador, um literal inteiro ou um
+    parêntese esquerdo */
+    else
+      error();
+  } /* Fim do else */
+  if (CURRENT_EM == EM_RAW_PRINT)
+    printf("Exit <factor>\n");
+  if (CURRENT_EM == EM_PRETTY_PRINT)
+    pretty_print("</factor>");
+  indentation_level--;
+} /* Fim da função factor */
+
+void error()
+{
+  printf("Error\n");
+  exit(1);
+}
+
+void pretty_print(char *str[])
+{
+  for (int i = 0; i < indentation_level; i++)
+  {
+    printf("  ");
+  }
+  printf("%s\n", str);
 }
