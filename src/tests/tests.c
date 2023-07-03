@@ -8,12 +8,17 @@ void validateArgs(int argc, char *argv[]);
 int main(int argc, char *argv[])
 {
 
-  for (int i = 0; i < argc; i++)
+  for (int i = 0; i < 256; i++)
   {
-    printf("%s\n", argv[i]);
+    printf("%d - %c \n", i, i);
   }
 
-  validateArgs(argc, argv);
+  // for (int i = 0; i < argc; i++)
+  // {
+  //   printf("%s\n", argv[i]);
+  // }
+
+  // validateArgs(argc, argv);
 
   return 0;
 }

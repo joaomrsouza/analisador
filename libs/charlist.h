@@ -1,22 +1,26 @@
-typedef struct char_list CharList;
+typedef struct char_list
+{
+  char info;
+  struct char_list *prox;
+} CharList;
 
-// Create an empty char list.
+// Cria uma lista de char vazia.
 CharList *clst_create();
-// Clear the char list.
+// Cria uma lista de char a partir de uma string.
+CharList *clst_create_from_string(char str[]);
+// Limpa a lista de char.
 CharList *clst_clear(CharList *l);
-// Verify if the char list is empty.
+// Verifica se a lista de char está vazia.
 int clst_empty(CharList *l);
-// Insert an char on the start of the char list.
+// Insere um char no fim da lista de char.
 CharList *clst_insert(CharList *l, char info);
-// Search for a char in the char list.
-CharList *clst_search(CharList *l, char info);
-// Print the char list.
-void clst_print(CharList *l);
-// Print the char list inline.
+// Imprime a lista de char em uma linha.
 void clst_print_inline(CharList *l);
-// Remove an element from a char list.
-CharList *clst_remove(CharList *l, char info);
-// Free the char list.
+// Libera a memória alocada para a lista de char.
 void clst_free(CharList *l);
-// Return the number of elements in a char list.
+// Retorna o tamanho da lista de char.
 int clst_length(CharList *l);
+// Retorna a lista de char como uma string.
+char *clst_to_string(CharList *l);
+// Remove o último char da lista de char.
+CharList *clst_remove_last(CharList *l);

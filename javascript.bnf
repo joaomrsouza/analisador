@@ -15,8 +15,8 @@
 
 <program> -> <stmt_list>
 <stmt_list> -> <stmt> {; <stmt_list>}
-<stmt> -> <print> | <expr>
-<print> -> console.log(<expr> | <string>)
+<stmt> -> <command> | <string> | <expr>
+<command> -> console.log(<expr> | <string>)
 <expr> -> <term> {(+ | -) <term>}
 <term> -> <factor> {(* | /) <factor>}
 <factor> -> <number>

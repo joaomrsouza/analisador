@@ -4,6 +4,9 @@
     "gruntfuggly.triggertaskonsave"
   ],
   "triggerTaskOnSave.tasks": {
+    // "C/C++: Execute active file": [
+    //   "src/**/*.c"
+    // ],
     "C/C++: gcc.exe build active file": [
       "src/**/*.c"
     ],
@@ -16,5 +19,19 @@
   "triggerTaskOnSave.resultIndicator": "statusBar.background",
   "triggerTaskOnSave.failureColour": "#80000050",
   "triggerTaskOnSave.successColour": "#00800050",
-  "workbench.colorCustomizations": {}
+  "workbench.colorCustomizations": {},
+  "files.associations": {
+    "*.html": "html",
+    "*.ejs": "html",
+    "*.geojson": "json",
+    ".pleeeaserc": "json",
+    "*/requirements{/**,*}.{txt,in}": "pip-requirements",
+    "*.jsx": "javascriptreact",
+    "stdlib.h": "c",
+    "type_traits": "cpp",
+    "string.h": "c",
+    "charlist.h": "c",
+    "clsttree.h": "c",
+    "stdio.h": "c"
+  }
 }

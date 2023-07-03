@@ -1,16 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "charlist.h"
-
-struct char_list
-{
-  char info;
-  CharList *prox;
-};
 
 CharList *clst_create()
 {
   return NULL;
+}
+
+CharList *clst_create_from_string(char str[])
+{
+  CharList *charList = clst_create();
+  for (int i = 0; i < strlen(str); i++)
+  {
+    charList = clst_insert(charList, str[i]);
+  }
+  return charList;
 }
 
 CharList *clst_clear(CharList *l)
@@ -36,7 +41,6 @@ CharList *clst_insert(CharList *l, char info)
   p->info = info;
   p->prox = NULL;
 
-  // Inserir no final da lista
   if (l == NULL)
   {
     return p;
@@ -51,28 +55,6 @@ CharList *clst_insert(CharList *l, char info)
   return l;
 }
 
-CharList *clst_search(CharList *l, char info)
-{
-  CharList *lAux = l;
-  while (lAux != NULL)
-  {
-    if (lAux->info == info)
-      return lAux;
-    lAux = lAux->prox;
-  }
-  return lAux; // NULL
-}
-
-void clst_print(CharList *l)
-{
-  CharList *lAux = l;
-  while (lAux != NULL)
-  {
-    printf("%c\n", lAux->info);
-    lAux = lAux->prox;
-  }
-}
-
 void clst_print_inline(CharList *l)
 {
   CharList *lAux = l;
@@ -81,38 +63,6 @@ void clst_print_inline(CharList *l)
     printf("%c", lAux->info);
     lAux = lAux->prox;
   }
-}
-
-CharList *clst_remove(CharList *l, char info)
-{
-  if (l != NULL)
-  {
-    CharList *lAux = l->prox;
-    if (l->info == info)
-    {
-      free(l);
-      return lAux;
-    }
-    else
-    {
-      CharList *lAnt = l;
-      while (lAux != NULL)
-      {
-        if (lAux->info == info)
-        {
-          lAnt->prox = lAux->prox;
-          free(lAux);
-          break;
-        }
-        else
-        {
-          lAnt = lAux;
-          lAux = lAux->prox;
-        }
-      }
-    }
-  }
-  return l;
 }
 
 void clst_free(CharList *l)
@@ -136,4 +86,48 @@ int clst_length(CharList *l)
     aux = aux->prox;
   }
   return count;
+}
+
+char *clst_to_string(CharList *l)
+{
+  if (l == NULL)
+    return NULL;
+
+  int length = clst_length(l);
+  char *str = (char *)malloc(sizeof(char) * (length + 1));
+  if (str == NULL)
+  {
+    printf("Not enough memory!\n");
+    exit(1);
+  }
+
+  CharList *lAux = l;
+  for (int i = 0; i < length; i++)
+  {
+    str[i] = lAux->info;
+    lAux = lAux->prox;
+  }
+  str[length] = '\0';
+  return str;
+}
+
+CharList *clst_remove_last(CharList *l)
+{
+  if (l == NULL)
+    return NULL;
+
+  if (l->prox == NULL)
+  {
+    free(l);
+    return NULL;
+  }
+
+  CharList *lAux = l;
+  while (lAux->prox->prox != NULL)
+  {
+    lAux = lAux->prox;
+  }
+  free(lAux->prox);
+  lAux->prox = NULL;
+  return l;
 }

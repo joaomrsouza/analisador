@@ -30,6 +30,7 @@
         "-o",
         "${fileDirname}\\${fileBasenameNoExtension}.exe",
         "${workspaceFolder}\\libs\\charlist.o",
+        "${workspaceFolder}\\libs\\clsttree.o",
         "${fileDirname}\\${fileBasenameNoExtension}.o"
       ],
       "options": {
