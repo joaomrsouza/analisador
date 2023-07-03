@@ -1,0 +1,4 @@
+"Exemplo 3, expressoes aritimeticas";
+5 + 9 * 75 / 6;
+7 - 3 + 85 / 74;
+9 / 1 + 5

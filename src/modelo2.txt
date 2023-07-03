@@ -1,0 +1,5 @@
+"Exemplo 2, operacoes aritimeticas basicas (+-*/)";
+5 + 10;
+10 - 7;
+9 * 3;
+256 / 16
